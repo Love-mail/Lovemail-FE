@@ -5,6 +5,26 @@ class About extends React.Component {
     return (
       <div>
         About
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
+        <h1>huhu</h1>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import Nav from './components/nav';
+import Footer from './components/footer';
 
 import Login from './container/login';
 import Register from './container/register';

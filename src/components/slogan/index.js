@@ -9,10 +9,14 @@ const Slogan = () => {
     text-align: center;
     top: 300px;
     left: 100px;
-    color: white;
+      color: white;
     h1{
       font-size:66px;
       margin-bottom: 28px;
+      color: white;
+    }
+    h2{
+      color: white;
     }
     ul{
       list-style: none;

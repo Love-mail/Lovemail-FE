@@ -12,7 +12,7 @@ class Index extends React.Component {
       width:100%;
       height:100%;
       min-width: 1000px;
-      z-index:-10;
+      z-index:-100;
       zoom: 1;
       background-image: url('http://p0ml8s4qd.bkt.clouddn.com/lovemailBg%20%281%29.jpg');
       background-color: #fff;
@@ -23,9 +23,11 @@ class Index extends React.Component {
       background-position: center 0;
     `
     return (
-      <Bgindex>
+      <div>
+        <Bgindex />
         <Slogan />
-      </Bgindex>
+      </div>
+      
     )
   }
 }

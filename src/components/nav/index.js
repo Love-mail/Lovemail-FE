@@ -23,7 +23,7 @@ class Nav extends React.Component {
       
       div{
         float: right;
-        margin-top: 14px;
+        margin-top: 35px;
         font-size: 22px;
         color: #F7F5F7;
         padding-right: 20px;
