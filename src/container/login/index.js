@@ -54,7 +54,7 @@ class Login extends React.Component {
         password
       })
       try {
-        let result = loginData
+        let result = await loginData
         if (result.status === 200) {
           this.props.history.push("/about");
         }
@@ -72,7 +72,7 @@ class Login extends React.Component {
       <div className="login-container">
         <div className="login-box">
           <div className="wellcome-box">
-            <h1>LoveMail</h1>
+            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
             <h3>很高兴，再次遇见你</h3>
           </div>
           <div className="form-box">

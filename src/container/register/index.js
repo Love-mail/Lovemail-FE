@@ -145,7 +145,7 @@ class Register extends React.Component {
       <div className="register-container">
         <div className="register-box">
           <div className="wellcome-box">
-            <h1>LoveMail</h1>
+            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
             <h3>你的到来，就是最好的礼物</h3>
           </div>
           <div className="form-box">

@@ -145,7 +145,7 @@ class Reset extends React.Component {
       <div className="reset-container">
         <div className="reset-box">
           <div className="wellcome-box">
-            <h1>LoveMail</h1>
+            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
             <h3>我就在这里，等风也等你</h3>
           </div>
           <div className="form-box">
