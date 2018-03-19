@@ -48,13 +48,10 @@ class Login extends React.Component {
       this.setState({
         loginMes: "正在登录"
       });
-      const loginData = axios({
-        methods:'post',
-        url: '/signin',
-        data: {
+      
+      const loginData = axios.post('/signin',{
           email,
           password
-        }
       })
       try {
         let result = await loginData
@@ -62,10 +59,14 @@ class Login extends React.Component {
           this.props.history.push("/about");
         }
       } catch (e) {
-        this.setState({
-          errorMessage: e.response.data.msg,
-          loginMes: "登录"
-        })
+        if(e.response){
+          this.setState({
+            errorMessage: e.response.data.msg,
+            loginMes: "登录"
+          })
+        } else {
+          console.log('一个非常重大的错误')
+        }
       }
     }
   }
