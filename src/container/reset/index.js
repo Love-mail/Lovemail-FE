@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import styled from "styled-components";
+import axios from "../../config/axios";
 
 import "./reset.less";
 
@@ -106,11 +105,11 @@ class Reset extends React.Component {
         let result = await resetData
         if (result.status === 200) {
           this.setState({
-            resetMes: "重置密码成功,3秒后进入登录页"
+            resetMes: "重置密码成功"
           });
           setTimeout(() => {
             this.props.history.push("/login");
-          }, 3000);
+          }, 1000);
         }
       } catch (e) {
         this.setState({
@@ -166,7 +165,7 @@ class Reset extends React.Component {
               onClick={this.getCode.bind(this)}
             >
               {this.state.codeSended
-                ? `(${this.state.timeCount}s) 已发送`
+                ? `${this.state.timeCount} s `
                 : this.state.checkText}
             </button>
             <input

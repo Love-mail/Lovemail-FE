@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import styled from "styled-components";
+import axios from "../../config/axios";
 
 import "./register.less";
 
@@ -106,11 +105,11 @@ class Register extends React.Component {
         let result = await registerData
         if (result.status === 201) {
           this.setState({
-            registerMes: "注册成功,3秒后进入登录页"
+            registerMes: "注册成功"
           });
           setTimeout(() => {
             this.props.history.push("/login");
-          }, 3000);
+          }, 1000);
         }
       } catch (e) {
         this.setState({
@@ -172,7 +171,7 @@ class Register extends React.Component {
               onClick={this.getCode.bind(this)}
             >
               {this.state.codeSended
-                ? `(${this.state.timeCount}s) 已发送`
+                ? `${this.state.timeCount} s `
                 : this.state.checkText}
             </button>
           </div>

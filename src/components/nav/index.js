@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from "styled-components";
+import styled from "styled-components"
+import { withRouter } from 'react-router-dom'
 
-
+@withRouter
 class Nav extends React.Component {
 
   render() {
@@ -72,19 +73,20 @@ class Nav extends React.Component {
           background-color:rgba(0,0,0,0.6);
         }
     `;
+    console.log(this.props.history)
     return (
       <Nav>
         <img src="http://p0ml8s4qd.bkt.clouddn.com/lovemaillogo.png" alt=""/>
         <SignBox>
-          <li>登录</li>
-          <li>注册</li>
+          <li onClick={() => this.props.history.push("/login")}>登录</li>
+          <li onClick={() => this.props.history.push("/register")}>注册</li>
         </SignBox>
         <div>
           <ul>
-            <li>案例</li>
-            <li>模板</li>
-            <li>私人定制</li>
-            <li>关于</li>
+            <li onClick={() => this.props.history.push("/case")}>案例</li>
+            <li onClick={() => this.props.history.push("/template")}>模板</li>
+            <li onClick={() => this.props.history.push("/custom")}>私人定制</li>
+            <li onClick={() => this.props.history.push("/about")}>关于</li>
           </ul>
         </div>
         

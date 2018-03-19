@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import styled from "styled-components";
+import axios from "../../config/axios";
 
 import "./login.less";
 
@@ -49,9 +48,13 @@ class Login extends React.Component {
       this.setState({
         loginMes: "正在登录"
       });
-      const loginData = axios.post('/signin',{
-        email,
-        password
+      const loginData = axios({
+        methods:'post',
+        url: '/signin',
+        data: {
+          email,
+          password
+        }
       })
       try {
         let result = await loginData
