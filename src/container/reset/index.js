@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-class Register extends React.Component {
+class Reset extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,7 +12,7 @@ class Register extends React.Component {
       codeDisable: false,
       codeSended: false,
       errorMessage: '',
-      registerMes: '注册',
+      resetMes: '重置密码',
       checkText: '获取验证码'
     }
   }
@@ -67,7 +67,7 @@ class Register extends React.Component {
         method: 'post',
         data: {
           email: that.state.email,
-          type: 'SIGNUP'
+          type: 'RESET'
         }
       }).then(result => {
         if(result.status === 200){
@@ -90,20 +90,20 @@ class Register extends React.Component {
     let { email, password, code } = this.state
     if (this.checkAllInfo()) {
       this.setState({
-        registerMes: '正在注册'
+        resetMes: '正在重置密码'
       })
       axios({
-        url: '/signup',
-        method: 'post',
+        url: '/user/reset',
+        method: 'patch',
         data: {
           email,
           password,
           code
         }
       }).then(result => {
-        if (result.status === 201) {
+        if (result.status === 200) {
           this.setState({
-            registerMes: '注册成功,3秒后进入登录页'
+            resetMes: '重置密码成功,3秒后进入登录页'
           })
           setTimeout(()=>{
             this.props.history.push('/login')
@@ -112,7 +112,7 @@ class Register extends React.Component {
       }).catch(e => {
         this.setState({
           errorMessage: e.response.data.msg,
-          registerMes: '注册'
+          resetMes: '重置密码'
         })
       })
     }
@@ -157,14 +157,14 @@ class Register extends React.Component {
     }
     const CheckButton = styled.button`
       position: absolute;
-      bottom: 9px;
+      bottom: 66px;
       right: 17px;
       width: 88px;
       height: 32px;
       color: #a7a7a7;
       cursor: pointer;
       background-color: transparent;
-      border: 1px solid #81a6f9;
+      border: 1px solid #6D85B9;
       border-radius: 3px;
       :hover{
       border-color: #243763;
@@ -188,7 +188,7 @@ class Register extends React.Component {
       height: '20px',
       marginTop: '10px'
     }
-    const RegisterButton = styled.button`
+    const ResetButton = styled.button`
       cursor: pointer;
       margin-top: 20px;
       width: 290px;
@@ -207,19 +207,22 @@ class Register extends React.Component {
         <div style={registerBox}>
           <WellComeTextBox>
             <h1>LoveMail</h1>
-            <h3>你的到来,就是最好的礼物</h3>
+            <h3>我就在这里，等风也等你</h3>
           </WellComeTextBox>
           <div style={formBox}>
             <input style={Input} value={this.state.email} onChange={e => this.handleInput('email',e)} placeholder="Email" type="text"/>
-            <input style={Input} value={this.state.password} onChange={e => this.handleInput('password',e)} placeholder="Password" type="password"/>
             <input style={Input} value={this.state.code} onChange={e => this.handleInput('code',e)} placeholder="验证码" type="text"/>
             <CheckButton disabled={this.state.codeDisable} onClick={this.getCode.bind(this)} >{this.state.codeSended ? `(${this.state.timeCount}) 已发送` : this.state.checkText}</CheckButton>
+            <input style={Input} value={this.state.password} onChange={e => this.handleInput('password',e)} placeholder="New Password" type="password"/>
           </div>
           <div style={errMes}>
             {this.state.errorMessage}
           </div>
-          <RegisterButton onClick={this.register.bind(this)}>{this.state.registerMes}</RegisterButton>
-          <p style={{marginTop: '20px', color: '#b7b7b7', cursor: 'pointer'}} onClick={() => this.props.history.push('/login')}>已有账号？ 立即登录</p>
+          <ResetButton onClick={this.register.bind(this)}>{this.state.resetMes}</ResetButton>
+          <div style={{padding: '0 16px'}}>
+            <p style={{marginTop: '20px', color: '#b7b7b7', cursor: 'pointer', float: 'left'}} onClick={() => this.props.history.push('/register')}>立即登录</p>
+            <p style={{marginTop: '20px', color: '#b7b7b7', cursor: 'pointer',float: 'right'}} onClick={() => this.props.history.push('/register')}>立即注册</p>
+          </div>
         </div>
       </div>
       
@@ -227,4 +230,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register
+export default Reset

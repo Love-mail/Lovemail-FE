@@ -6,6 +6,7 @@ import Footer from './components/footer';
 
 import Login from './container/login';
 import Register from './container/register';
+import Reset from './container/reset';
 import Index from './container/index';
 import About from './container/about';
 import Case from './container/case';
@@ -25,7 +26,7 @@ class App extends Component {
    console.log(this.props.location.pathname)
   }
   render() {
-    const noNav = ['/login','/register']
+    const noNav = ['/login','/register','/about','/reset']
     return (
       <div style={{position: 'relative'}}>
       {
@@ -35,6 +36,7 @@ class App extends Component {
         <Route exact path="/" component={Index}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/register" component={Register}></Route>
+        <Route path="/reset" component={Reset}></Route>
         <Route path="/about" component={About}></Route>
         <Route path="/case" component={Case}></Route>
         <Route path="/control" component={Control}></Route>

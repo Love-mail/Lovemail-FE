@@ -13,3 +13,20 @@ body {
 .login-form-button {
   width: 100%;
 }
+input, button, select, textarea {
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  }
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+    color: #c7c7c7; 
+    } 
+    input:-moz-placeholder, textarea:-moz-placeholder { 
+    color: #c7c7c7; 
+    } 
+    input::-moz-placeholder, textarea::-moz-placeholder { 
+    color: #c7c7c7; 
+    } 
+    input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    color: #c7c7c7; 
+    } 
