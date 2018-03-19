@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Slogan from '../../components/slogan'
 
+
 class Index extends React.Component {
   render() {
     const Bgindex = styled.div`
