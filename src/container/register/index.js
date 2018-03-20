@@ -149,9 +149,9 @@ class Register extends React.Component {
   render() {
     return (
       <div className="register-container">
-        <div className="register-box">
+        <div className="register-box vertical-center">
           <FormTopText sloganValue="你的到来，就是最好的礼物" />
-          <div className="form-box">
+          <div className="form-box fadeInDown">
           <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
