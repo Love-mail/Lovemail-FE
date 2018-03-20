@@ -83,8 +83,8 @@ class Login extends React.Component {
         <div className="login-box">
           <FormTopText sloganValue="很高兴，再次遇见你" />
           <div className="form-box">
-            <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
-            <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
+            <InputCom autoFocus typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
+            <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           </div>
           <FormerrMsg msgValue={this.state.errorMessage} />
           <FromButton onClick={this.login.bind(this)} buttonText={this.state.loginMes} />

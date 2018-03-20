@@ -152,9 +152,9 @@ class Reset extends React.Component {
         <div className="reset-box">
           <FormTopText sloganValue="我就在这里，等风也等你" />
           <div className="form-box">
-          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
-          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           <TimeoutButton style={{bottom: '66px'}} disableVal={this.state.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.state.codeSended
                 ? `${this.state.timeCount} s `
                 : this.state.checkText} />

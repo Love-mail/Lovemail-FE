@@ -112,7 +112,7 @@ class Register extends React.Component {
         let result = await registerData
         if (result.status === 201) {
           this.setState({
-            registerMes: "注册成功"
+            registerMes: "注册成功,正在跳转登录"
           });
           setTimeout(() => {
             this.props.history.push("/login");
@@ -152,8 +152,8 @@ class Register extends React.Component {
         <div className="register-box">
           <FormTopText sloganValue="你的到来，就是最好的礼物" />
           <div className="form-box">
-          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
-          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
           <TimeoutButton style={{bottom: '9px'}} disableVal={this.state.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.state.codeSended
                 ? `${this.state.timeCount} s `

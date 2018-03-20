@@ -22,10 +22,15 @@ class About extends React.Component {
     console.log(key)
     console.log(e.target.value)
   }
+  componentDidMount(){
+    // console.log(this.refs.testinput.focus())
+  }
   render() {
     return (
       <div>
-        <InputCom placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
+
+        <div ref="haha" >asdf</div>
+        <InputCom autoFocus ref="testinput" placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
         <h1 className="htest">h1h1h1h1</h1>
         <button onClick={this.test.bind(this)}>test</button>
         <Row>
