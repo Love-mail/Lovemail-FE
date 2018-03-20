@@ -7,6 +7,8 @@ import FromButton from "../../components/button/formButton"
 import FormOtherBox from "../../components/otherBox/formOtherBox"
 import FormerrMsg from "../../components/tipMes/formerrMsg"
 
+import { setCookie } from "../../config/token"
+
 import "./login.less";
 
 class Login extends React.Component {
@@ -54,7 +56,6 @@ class Login extends React.Component {
       this.setState({
         loginMes: "正在登录"
       });
-      
       const loginData = axios.post('/signin',{
           email,
           password
@@ -62,16 +63,20 @@ class Login extends React.Component {
       try {
         let result = await loginData
         if (result.status === 200) {
+          setCookie('token', result.data.data.accessToken)
           this.props.history.push("/about");
         }
       } catch (e) {
-        if(e.response){
+        if(e.response){  //请求发出去后收到服务器错误响应
           this.setState({
             errorMessage: e.response.data.msg,
             loginMes: "登录"
           })
-        } else {
-          console.log('一个非常重大的错误')
+        } else {  // 请求发送失败本地错误响应
+          this.setState({
+            errorMessage: e.message,
+            loginMes: "登录"
+          })
         }
       }
     }

@@ -1,5 +1,8 @@
 import React from 'react'
-import { Row, Col } from 'antd';
+import { Row, Col } from 'antd'
+
+import axios from '../../config/axios'
+
 import InputCom from '../../components/input'
 
 import "./about.less"
@@ -25,10 +28,13 @@ class About extends React.Component {
   componentDidMount(){
     // console.log(this.refs.testinput.focus())
   }
+  testApi() {
+    axios.get('/user').then(r => console.log(r))
+  }
   render() {
     return (
       <div>
-
+        <button onClick={this.testApi.bind(this)} >testAPI</button>
         <div ref="haha" >asdf</div>
         <InputCom autoFocus ref="testinput" placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
         <h1 className="htest">h1h1h1h1</h1>

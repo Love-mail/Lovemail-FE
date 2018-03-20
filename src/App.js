@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Router } from 'react-router-dom';
+
+import history from "./config/history"
 
 import Nav from './components/nav';
 import Footer from './components/footer';
@@ -28,22 +30,24 @@ class App extends Component {
   render() {
     const noNav = ['/login','/register','/about','/reset']
     return (
+        // <Router >
       <div style={{position: 'relative'}}>
       {
         noNav.indexOf(this.props.location.pathname) === -1 ? <Nav /> : null
       }
-      <Switch>
-        <Route exact path="/" component={Index}></Route>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={Register}></Route>
-        <Route path="/reset" component={Reset}></Route>
-        <Route path="/about" component={About}></Route>
-        <Route path="/case" component={Case}></Route>
-        <Route path="/control" component={Control}></Route>
-        <Route path="/custom" component={Custom}></Route>
-        <Route path="/template" component={Template}></Route>
-      </Switch>
+        <Switch>
+          <Route exact path="/" component={Index}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+          <Route path="/reset" component={Reset}></Route>
+          <Route path="/about" component={About}></Route>
+          <Route path="/case" component={Case}></Route>
+          <Route path="/control" component={Control}></Route>
+          <Route path="/custom" component={Custom}></Route>
+          <Route path="/template" component={Template}></Route>
+        </Switch>
       </div>
+      // </Router>
     );
   }
 }
