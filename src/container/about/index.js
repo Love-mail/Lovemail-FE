@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd';
+import InputCom from '../../components/input'
 
 import "./about.less"
 
@@ -17,9 +18,14 @@ class About extends React.Component {
     let gg = await this.testApi()
     console.log(gg)
   }
+  handleInput(key,e) {
+    console.log(key)
+    console.log(e.target.value)
+  }
   render() {
     return (
       <div>
+        <InputCom placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
         <h1 className="htest">h1h1h1h1</h1>
         <button onClick={this.test.bind(this)}>test</button>
         <Row>

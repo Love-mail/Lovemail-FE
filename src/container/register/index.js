@@ -1,7 +1,14 @@
-import React from "react";
-import axios from "../../config/axios";
+import React from "react"
+import axios from "../../config/axios"
 
-import "./register.less";
+import InputCom from "../../components/input"
+import FormTopText from "../../components/formTopText"
+import FromButton from "../../components/button/formButton"
+import FormOtherBox from "../../components/otherBox/formOtherBox"
+import TimeoutButton from "../../components/button/timeoutButton"
+import FormerrMsg from "../../components/tipMes/formerrMsg"
+
+import "./register.less"
 
 class Register extends React.Component {
   constructor(props) {
@@ -143,54 +150,22 @@ class Register extends React.Component {
     return (
       <div className="register-container">
         <div className="register-box">
-          <div className="wellcome-box">
-            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
-            <h3>你的到来，就是最好的礼物</h3>
-          </div>
+          <FormTopText sloganValue="你的到来，就是最好的礼物" />
           <div className="form-box">
-            <input
-              value={this.state.email}
-              onChange={e => this.handleInput("email", e)}
-              placeholder="Email"
-              type="text"
-            />
-            <input
-              value={this.state.password}
-              onChange={e => this.handleInput("password", e)}
-              placeholder="Password"
-              type="password"
-            />
-            <input
-              value={this.state.code}
-              onChange={e => this.handleInput("code", e)}
-              placeholder="验证码"
-              type="text"
-            />
-            <button
-              disabled={this.state.codeDisable}
-              onClick={this.getCode.bind(this)}
-            >
-              {this.state.codeSended
+          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
+          <TimeoutButton style={{bottom: '9px'}} disableVal={this.state.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.state.codeSended
                 ? `${this.state.timeCount} s `
-                : this.state.checkText}
-            </button>
+                : this.state.checkText} />
           </div>
-          <div className="errMes">{this.state.errorMessage}</div>
-          <button
-            className="register-button"
-            onClick={this.register.bind(this)}
-          >
-            {this.state.registerMes}
-          </button>
-          <div className="other-box">
-            <p onClick={() => this.props.history.push("/login")}>
-              已有账号？ 立即登录
-            </p>
-          </div>
+          <FormerrMsg msgValue={this.state.errorMessage} />
+          <FromButton onClick={this.register.bind(this)} buttonText={this.state.registerMes} />
+          <FormOtherBox otherOne={{router:"/login",textValue:"已有账号？ 立即登录"}} />
         </div>
       </div>
     );
   }
 }
 
-export default Register;
+export default Register

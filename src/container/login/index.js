@@ -1,5 +1,11 @@
-import React from "react";
-import axios from "../../config/axios";
+import React from "react"
+import axios from "../../config/axios"
+
+import InputCom from "../../components/input"
+import FormTopText from "../../components/formTopText"
+import FromButton from "../../components/button/formButton"
+import FormOtherBox from "../../components/otherBox/formOtherBox"
+import FormerrMsg from "../../components/tipMes/formerrMsg"
 
 import "./login.less";
 
@@ -75,42 +81,14 @@ class Login extends React.Component {
     return (
       <div className="login-container">
         <div className="login-box">
-          <div className="wellcome-box">
-            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
-            <h3>很高兴，再次遇见你</h3>
-          </div>
+          <FormTopText sloganValue="很高兴，再次遇见你" />
           <div className="form-box">
-            <input
-              value={this.state.email}
-              onChange={e => this.handleInput("email", e)}
-              placeholder="Email"
-              type="text"
-            />
-            <input
-              value={this.state.password}
-              onChange={e => this.handleInput("password", e)}
-              placeholder="Password"
-              type="password"
-            />
+            <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
+            <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
           </div>
-          <div className="errMes">{this.state.errorMessage}</div>
-          <button className="login-button" onClick={this.login.bind(this)}>
-            {this.state.loginMes}
-          </button>
-          <div className="other-box">
-            <p
-              style={{ float: "left" }}
-              onClick={() => this.props.history.push("/register")}
-            >
-              立即注册
-            </p>
-            <p
-              style={{ float: "right" }}
-              onClick={() => this.props.history.push("/reset")}
-            >
-              找回密码
-            </p>
-          </div>
+          <FormerrMsg msgValue={this.state.errorMessage} />
+          <FromButton onClick={this.login.bind(this)} buttonText={this.state.loginMes} />
+          <FormOtherBox otherOne={{router:"/register",textValue:"立即注册"}} otherTwo={{router:"/reset",textValue:"找回密码"}} />
         </div>
       </div>
     );

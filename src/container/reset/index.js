@@ -1,6 +1,13 @@
 import React from "react";
 import axios from "../../config/axios";
 
+import InputCom from "../../components/input"
+import FormTopText from "../../components/formTopText"
+import FromButton from "../../components/button/formButton"
+import FormOtherBox from "../../components/otherBox/formOtherBox"
+import TimeoutButton from "../../components/button/timeoutButton"
+import FormerrMsg from "../../components/tipMes/formerrMsg"
+
 import "./reset.less";
 
 class Reset extends React.Component {
@@ -143,56 +150,18 @@ class Reset extends React.Component {
     return (
       <div className="reset-container">
         <div className="reset-box">
-          <div className="wellcome-box">
-            <h1 onClick={() => this.props.history.push("/")}>LoveMail</h1>
-            <h3>我就在这里，等风也等你</h3>
-          </div>
+          <FormTopText sloganValue="我就在这里，等风也等你" />
           <div className="form-box">
-            <input
-              value={this.state.email}
-              onChange={e => this.handleInput("email", e)}
-              placeholder="Email"
-              type="text"
-            />
-            <input
-              value={this.state.code}
-              onChange={e => this.handleInput("code", e)}
-              placeholder="验证码"
-              type="text"
-            />
-            <button
-              disabled={this.state.codeDisable}
-              onClick={this.getCode.bind(this)}
-            >
-              {this.state.codeSended
+          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
+          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="Password" keyVal="password" handleInput={this.handleInput.bind(this)} />
+          <TimeoutButton style={{bottom: '66px'}} disableVal={this.state.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.state.codeSended
                 ? `${this.state.timeCount} s `
-                : this.state.checkText}
-            </button>
-            <input
-              value={this.state.password}
-              onChange={e => this.handleInput("password", e)}
-              placeholder="New Password"
-              type="password"
-            />
+                : this.state.checkText} />
           </div>
-          <div className="errMes">{this.state.errorMessage}</div>
-          <button className="reset-button" onClick={this.reset.bind(this)}>
-            {this.state.resetMes}
-          </button>
-          <div className="other-box">
-            <p
-              style={{ float: "left" }}
-              onClick={() => this.props.history.push("/login")}
-            >
-              立即登录
-            </p>
-            <p
-              style={{ float: "right" }}
-              onClick={() => this.props.history.push("/register")}
-            >
-              立即注册
-            </p>
-          </div>
+          <FormerrMsg msgValue={this.state.errorMessage} />
+          <FromButton onClick={this.reset.bind(this)} buttonText={this.state.resetMes} />
+          <FormOtherBox otherOne={{router:"/login",textValue:"立即登录"}} otherTwo={{router:"/register",textValue:"立即注册"}} />
         </div>
       </div>
     );
