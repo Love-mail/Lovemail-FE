@@ -5,13 +5,15 @@ import checkAllInfo from "../config/checkInfo"
 import { setCookie, clearCookie } from "../config/token"
 
 const AUTH_UPDATE = "AUTH_UPDATE"
-const CHANG_EREGISTE_RMSG = "CHANG_EREGISTE_RMSG"
-const CHANG_RESET_RMSG = "CHANG_RESET_RMSG"
+const CHANGE_EREGISTE_RMSG = "CHANGE_EREGISTE_RMSG"
+const CHANGE_RESET_RMSG = "CHANGE_RESET_RMSG"
 const CHANGE_CODE_BUTTON_DISABLE = "CHANGE_CODE_BUTTON_DISABLE"
 const CHANGE_CODE_SENDED = "CHANGE_CODE_SENDED"
 const CHANGE_CODE_BUTTON_TEXT = "CHANGE_CODE_BUTTON_TEXT"
 const CHANGE_TIME_OUT = "CHANGE_TIME_OUT"
 const ERROR_MSG = "ERROR_MSG"
+
+const MAIL_SETTING_UPDATE = "MAIL_SETTING_UPDATE"
 
 const initState = {
   userData: "",
@@ -30,9 +32,9 @@ export function user(state = initState, action) {
       return { ...state, userData: action.payload, errMsg: '' }
     case ERROR_MSG:
       return { ...state, errMsg: action.payload }
-    case CHANG_EREGISTE_RMSG:
+    case CHANGE_EREGISTE_RMSG:
       return { ...state, registerMsg: action.payload }
-    case CHANG_RESET_RMSG:
+    case CHANGE_RESET_RMSG:
       return { ...state, resetMsg: action.payload }
     case CHANGE_CODE_BUTTON_DISABLE:
       return { ...state, codeDisable: action.payload }
@@ -42,6 +44,8 @@ export function user(state = initState, action) {
       return { ...state, checkText: action.payload }
     case CHANGE_TIME_OUT:
       return { ...state, timeOut: action.payload }
+    case MAIL_SETTING_UPDATE:
+      return { ...state, }
     default:
       return state;
   }
@@ -59,12 +63,12 @@ function errorMsg(msg) {
 
 // 改变注册文字
 function changeRegisterMsg(msg) {
-  return { type: CHANG_EREGISTE_RMSG, payload: msg }
+  return { type: CHANGE_EREGISTE_RMSG, payload: msg }
 }
 
 // 改变重置密码文字
 function changeResetMsg(msg) {
-  return { type: CHANG_RESET_RMSG, payload: msg }
+  return { type: CHANGE_RESET_RMSG, payload: msg }
 }
 
 // 改变验证码按钮是否可以用
@@ -91,6 +95,7 @@ function changeTimeOut(msg) {
  * 登录
  */
 export function login(email, password) {
+  console.log('test login')
   const check = checkAllInfo('login',email, password)
   if (check.success) {
     return async dispatch => {
@@ -126,6 +131,9 @@ export function logout() {
   return { type: AUTH_UPDATE, payload: "" };
 }
 
+/**
+ * 更新用户信息
+ */
 export function userDateUpdate(){
   return async dispatch => {
     const getUserData = axios.get("/user")
@@ -146,6 +154,8 @@ export function userDateUpdate(){
  * 注册
  */
 export function register(email, password, code) {
+  console.log('test regi')
+  
   const check = checkAllInfo('register', email, password, code)
   if (check.success) {
     return async dispatch => {
@@ -183,6 +193,7 @@ export function register(email, password, code) {
  * 重置密码
  */
 export function reset(email, password, code) {
+  console.log('test reset')
   const check = checkAllInfo('register', email, password, code)
   if (check.success) {
     return async dispatch => {
@@ -220,6 +231,7 @@ export function reset(email, password, code) {
  * 获取验证码
  */
 export function getCode(type,email) {
+  console.log('test getcode')
   const check = checkAllInfo('getCode', email)
   if (check.success) {
     return async dispatch => {
@@ -269,6 +281,21 @@ export function getCode(type,email) {
 /**
  * 页面卸载前清楚错误信息
  */
-export function cleareMsg(){
+export function cleareMsg() {
   return { type: ERROR_MSG, payload: "" };
+}
+
+/**
+ * 保存邮箱设置
+ */
+export function saveSetting(settingObj) {
+  return async dispatch => {
+    const settingEmail = axios.post('/lovemail/setting',settingObj)
+    try {
+      let result = await settingEmail
+      console.log(result)
+    } catch (e) {
+
+    }
+  }
 }

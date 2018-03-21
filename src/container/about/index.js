@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from "react-redux"
 
-import { login, userDateUpdate, logout } from "../../redux/user.redux"
+import { login, userDateUpdate, logout, saveSetting } from "../../redux/user.redux"
+import { getTempData } from "../../redux/temp.redux"
+import { getCityData } from "../../redux/city.redux"
 
 import { Row, Col } from 'antd'
 
@@ -12,8 +14,8 @@ import InputCom from '../../components/input'
 import "./about.less"
 
 @connect(
-  state => state.user,
-  { login, userDateUpdate, logout }
+  state => state,
+  { login, userDateUpdate, logout, saveSetting, getTempData, getCityData }
 )
 class About extends React.Component {
   testApi() {
@@ -33,20 +35,37 @@ class About extends React.Component {
     console.log(key)
     console.log(e.target.value)
   }
-  componentDidMount(){
-    console.log(this.props)
-    this.props.login({email:'isdf@dzf.asdf', password:'1234'})
-    // console.log(this.refs.testinput.focus())
-  }
   testApi() {
     this.props.userDateUpdate()
   }
   logout() {
     this.props.logout()
   }
+  saveSetting(){
+    this.props.saveSetting({
+      "nickname": "6666",
+      "love_email": "xxx@xxx.com",
+      "love_time": "6666",
+      "love_date": "6666",
+      "love_city": "6666",
+      "love_color": "6666",
+      "love_temp": "6666",
+      "isStart": true
+    })
+  }
+  gettemp() {
+    this.props.getTempData()
+    console.log(this.props)
+  }
+  city(){
+    this.props.getCityData()
+  }
   render() {
     return (
       <div>
+        <button onClick={this.city.bind(this)} >city</button>        
+        <button onClick={this.gettemp.bind(this)} >temp</button>        
+        <button onClick={this.saveSetting.bind(this)} >setting</button>        
         <button onClick={this.logout.bind(this)} >logout</button>
         <button onClick={this.testApi.bind(this)} >testAPI</button>
         <div ref="haha" >asdf</div>

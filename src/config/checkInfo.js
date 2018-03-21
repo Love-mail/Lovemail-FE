@@ -1,5 +1,5 @@
 export default function checkAllInfo(type, email, password, code) {
-  
+  console.log('test')
   let reg = new RegExp(
     "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
   );

@@ -1,5 +1,4 @@
 import React from "react"
-import axios from "../../config/axios"
 
 import { connect } from "react-redux"
 import { login, cleareMsg } from "../../redux/user.redux"
@@ -37,7 +36,6 @@ class Login extends React.Component {
   }
   componentWillUnmount(){
     this.props.cleareMsg()
-    console.log('login')
   }
   render() {
     return (

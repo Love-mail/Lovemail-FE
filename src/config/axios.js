@@ -11,7 +11,7 @@ instance.interceptors.request.use(
   req => {
     const token = getCookie('token')
     // 公共请求API,请求头不带有Authorization
-    const publicUrl = ["/signup", "/signin", "/email/validate", "/user/reset"]
+    const publicUrl = ["/signup", "/signin", "/email/validate", "/user/reset", "/temp/all"]
     const url = req.url
     // 其他需要Authorization的请求
     if (publicUrl.indexOf(url) === -1) {

@@ -40,7 +40,6 @@ class Reset extends React.Component {
   }
   componentWillUnmount(){
     this.props.cleareMsg()
-    console.log('login')
   }
   render() {
     return (
