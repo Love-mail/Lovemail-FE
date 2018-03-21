@@ -18,15 +18,40 @@ input, button, select, textarea {
   -webkit-appearance: none;
   border-radius: 0;
   }
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
-    color: #c7c7c7; 
-    } 
-    input:-moz-placeholder, textarea:-moz-placeholder { 
-    color: #c7c7c7; 
-    } 
-    input::-moz-placeholder, textarea::-moz-placeholder { 
-    color: #c7c7c7; 
-    } 
-    input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
-    color: #c7c7c7; 
-    } 
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #c7c7c7;
+    }
+    input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #c7c7c7;
+    }
+    input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #c7c7c7;
+    }
+    input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #c7c7c7;
+    }
+
+/* 缓动 */
+.fadeInDown {
+  animation: fadeInDown 1s ease;
+  animation-iteration-count:1;
+}
+
+/* 垂直居中 */
+.vertical-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%,0);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

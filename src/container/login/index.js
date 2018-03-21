@@ -85,9 +85,9 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-container">
-        <div className="login-box">
+        <div className="login-box vertical-center">
           <FormTopText sloganValue="很高兴，再次遇见你" />
-          <div className="form-box">
+          <div className="form-box fadeInDown">
             <InputCom autoFocus typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
             <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           </div>

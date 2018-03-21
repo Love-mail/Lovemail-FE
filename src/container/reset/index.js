@@ -149,9 +149,9 @@ class Reset extends React.Component {
   render() {
     return (
       <div className="reset-container">
-        <div className="reset-box">
+        <div className="reset-box vertical-center">
           <FormTopText sloganValue="我就在这里，等风也等你" />
-          <div className="form-box">
+          <div className="form-box fadeInDown">
           <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
           <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />

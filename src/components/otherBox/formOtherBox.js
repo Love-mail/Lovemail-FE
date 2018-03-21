@@ -7,7 +7,7 @@ class FormOtherBox extends React.Component {
   render() {
     const { otherOne, otherTwo = null } = this.props;
     return (
-      <div className="other-box">
+      <div className="other-box fadeInDown">
         {otherTwo ? (
           <div>
             <p
