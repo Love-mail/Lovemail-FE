@@ -2,7 +2,7 @@ import React from "react";
 import axios from "../../config/axios";
 
 import { connect } from "react-redux"
-import { reset, getCode } from "../../redux/user.redux"
+import { reset, getCode, cleareMsg } from "../../redux/user.redux"
 
 import InputCom from "../../components/input"
 import FormTopText from "../../components/formTopText"
@@ -14,7 +14,7 @@ import FormerrMsg from "../../components/tipMes/formerrMsg"
 import "./reset.less";
 @connect(
   state => state.user,
-  { reset, getCode }
+  { reset, getCode, cleareMsg }
 )
 class Reset extends React.Component {
   constructor(props) {
@@ -38,6 +38,10 @@ class Reset extends React.Component {
     let { email, password, code } = this.state;
     this.props.reset(email, password, code)    
   }
+  componentWillUnmount(){
+    this.props.cleareMsg()
+    console.log('login')
+  }
   render() {
     return (
       <div className="reset-container">
@@ -47,7 +51,7 @@ class Reset extends React.Component {
             <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
             <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
             <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
-            <TimeoutButton style={{bottom: '66px'}} disableVal={this.props.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.props.timeOut === 0 ? this.props.checkText : `${this.props.timeOut }s`}/>
+            <TimeoutButton style={{bottom: '66px'}} disableVal={this.props.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.props.timeOut === 0 ? this.props.checkText : `${this.props.timeOut } s`}/>
           </div>
           <FormerrMsg msgValue={this.props.errMsg} />
           <FromButton onClick={this.reset.bind(this)} buttonText={this.props.resetMsg} />

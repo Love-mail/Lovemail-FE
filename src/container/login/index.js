@@ -2,7 +2,7 @@ import React from "react"
 import axios from "../../config/axios"
 
 import { connect } from "react-redux"
-import { login } from "../../redux/user.redux"
+import { login, cleareMsg } from "../../redux/user.redux"
 
 import InputCom from "../../components/input"
 import FormTopText from "../../components/formTopText"
@@ -16,7 +16,7 @@ import "./login.less";
 
 @connect(
   state => state.user,
-  { login }
+  { login, cleareMsg }
 )
 class Login extends React.Component {
   constructor(props) {
@@ -35,7 +35,10 @@ class Login extends React.Component {
     let { email, password } = this.state;
     this.props.login(email, password)
   }
-
+  componentWillUnmount(){
+    this.props.cleareMsg()
+    console.log('login')
+  }
   render() {
     return (
       <div className="login-container">
@@ -46,7 +49,7 @@ class Login extends React.Component {
             <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
           </div>
           <FormerrMsg msgValue={this.props.errMsg} />
-          <FromButton onClick={this.login.bind(this)} buttonText={this.state.loginMes} />
+          <FromButton onClick={this.login.bind(this)} buttonText="登录" />
           <FormOtherBox otherOne={{router:"/register",textValue:"立即注册"}} otherTwo={{router:"/reset",textValue:"找回密码"}} />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux"
 
-import { login } from "../../redux/user.redux"
+import { login, userDateUpdate, logout } from "../../redux/user.redux"
 
 import { Row, Col } from 'antd'
 
@@ -13,7 +13,7 @@ import "./about.less"
 
 @connect(
   state => state.user,
-  { login }
+  { login, userDateUpdate, logout }
 )
 class About extends React.Component {
   testApi() {
@@ -39,11 +39,15 @@ class About extends React.Component {
     // console.log(this.refs.testinput.focus())
   }
   testApi() {
-    axios.get('/user').then(r => console.log(r))
+    this.props.userDateUpdate()
+  }
+  logout() {
+    this.props.logout()
   }
   render() {
     return (
       <div>
+        <button onClick={this.logout.bind(this)} >logout</button>
         <button onClick={this.testApi.bind(this)} >testAPI</button>
         <div ref="haha" >asdf</div>
         <InputCom autoFocus ref="testinput" placeholderVal="Email" keyVal="email" handleInput={this.handleInput.bind(this)} />

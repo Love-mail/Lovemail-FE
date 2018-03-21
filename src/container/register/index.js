@@ -1,7 +1,7 @@
 import React from "react"
 
 import { connect } from "react-redux"
-import { register, getCode } from "../../redux/user.redux"
+import { register, getCode, cleareMsg } from "../../redux/user.redux"
 
 import InputCom from "../../components/input"
 import FormTopText from "../../components/formTopText"
@@ -14,7 +14,7 @@ import "./register.less"
 
 @connect(
   state => state.user,
-  { register, getCode }
+  { register, getCode, cleareMsg }
 )
 class Register extends React.Component {
   constructor(props) {
@@ -39,7 +39,10 @@ class Register extends React.Component {
     let { email, password, code } = this.state;
     this.props.register(email, password, code)
   }
-  
+  componentWillUnmount(){
+    this.props.cleareMsg()
+    console.log('login')
+  }
   render() {
     return (
       <div className="register-container">
@@ -49,7 +52,7 @@ class Register extends React.Component {
             <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
             <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
             <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
-            <TimeoutButton style={{bottom: '9px'}} disableVal={this.props.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.props.timeOut === 0 ? this.props.checkText : `${this.props.timeOut }s`}/>
+            <TimeoutButton style={{bottom: '9px'}} disableVal={this.props.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.props.timeOut === 0 ? this.props.checkText : `${this.props.timeOut } s`}/>
           </div>
           <FormerrMsg msgValue={this.props.errMsg} />
           <FromButton onClick={this.register.bind(this)} buttonText={this.props.registerMsg} />

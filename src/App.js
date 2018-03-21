@@ -25,7 +25,6 @@ class App extends Component {
     }
   }
   componentDidMount() {
-   console.log(this.props.location.pathname)
   }
   render() {
     const noNav = ['/login','/register','/about','/reset']

@@ -2,11 +2,9 @@ import axios from "../config/axios"
 
 import history from "../config/history"
 import checkAllInfo from "../config/checkInfo"
-import { setCookie } from "../config/token"
+import { setCookie, clearCookie } from "../config/token"
 
-const AUTH_SUCCESS = "AUTH_SUCCESS"
-const LOGIN = "LOGIN"
-const LOGOUT = "LOGOUT"
+const AUTH_UPDATE = "AUTH_UPDATE"
 const CHANG_EREGISTE_RMSG = "CHANG_EREGISTE_RMSG"
 const CHANG_RESET_RMSG = "CHANG_RESET_RMSG"
 const CHANGE_CODE_BUTTON_DISABLE = "CHANGE_CODE_BUTTON_DISABLE"
@@ -18,7 +16,6 @@ const ERROR_MSG = "ERROR_MSG"
 const initState = {
   userData: "",
   errMsg: "",
-  successMsg: "",
   registerMsg: "注册",
   resetMsg: "重置密码",
   codeDisable: false,
@@ -29,9 +26,7 @@ const initState = {
 
 export function user(state = initState, action) {
   switch (action.type) {
-    case AUTH_SUCCESS:
-      return { ...state };
-    case LOGIN:
+    case AUTH_UPDATE:
       return { ...state, userData: action.payload, errMsg: '' }
     case ERROR_MSG:
       return { ...state, errMsg: action.payload }
@@ -52,38 +47,49 @@ export function user(state = initState, action) {
   }
 }
 
-function loginSuccess(obj) {
-  return { type: LOGIN, payload: obj };
+// 更新用户信息
+function AuthUpdate(obj) {
+  return { type: AUTH_UPDATE, payload: obj }
 }
 
+// 错误处理文字
 function errorMsg(msg) {
   return { type: ERROR_MSG, payload: msg }
 }
 
+// 改变注册文字
 function changeRegisterMsg(msg) {
   return { type: CHANG_EREGISTE_RMSG, payload: msg }
 }
 
+// 改变重置密码文字
 function changeResetMsg(msg) {
   return { type: CHANG_RESET_RMSG, payload: msg }
 }
 
+// 改变验证码按钮是否可以用
 function changeCodeButtonDisable(msg) {
   return { type: CHANGE_CODE_BUTTON_DISABLE, payload: msg }
 }
 
+//改变验证码发送状态
 function changeCodeed(msg) {
   return { type: CHANGE_CODE_SENDED, payload: msg }
 }
 
+// 改变获取验证码按钮文字
 function changeCodeButtonText(msg) {
   return { type: CHANGE_CODE_BUTTON_TEXT, payload: msg }
 }
 
+// 改变倒计时时间
 function changeTimeOut(msg) {
   return { type: CHANGE_TIME_OUT, payload: msg }
 }
  
+/**
+ * 登录
+ */
 export function login(email, password) {
   const check = checkAllInfo('login',email, password)
   if (check.success) {
@@ -96,7 +102,7 @@ export function login(email, password) {
         let result = await loginData
         if (result.status === 200) {
           history.push('/about')
-          dispatch(loginSuccess(result.data.data.accessToken))
+          dispatch(AuthUpdate(result.data.data.accessToken))
           setCookie('token', result.data.data.accessToken)
         }
       } catch (e) {
@@ -112,6 +118,33 @@ export function login(email, password) {
   }
 }
 
+/**
+ * 登录消除redux信息以及清除cookie中数据
+ */
+export function logout() {
+  clearCookie('token')
+  return { type: AUTH_UPDATE, payload: "" };
+}
+
+export function userDateUpdate(){
+  return async dispatch => {
+    const getUserData = axios.get("/user")
+    try {
+      let result = await getUserData
+      if (result.status === 200) {
+        dispatch(AuthUpdate(result.data.data))
+      }
+    } catch (e) {
+      /**
+       * TODO 获取数据失败处理
+       */
+    }
+  }
+}
+
+/**
+ * 注册
+ */
 export function register(email, password, code) {
   const check = checkAllInfo('register', email, password, code)
   if (check.success) {
@@ -146,7 +179,9 @@ export function register(email, password, code) {
   }
 }
 
-
+/**
+ * 重置密码
+ */
 export function reset(email, password, code) {
   const check = checkAllInfo('register', email, password, code)
   if (check.success) {
@@ -181,6 +216,9 @@ export function reset(email, password, code) {
   }
 }
 
+/**
+ * 获取验证码
+ */
 export function getCode(type,email) {
   const check = checkAllInfo('getCode', email)
   if (check.success) {
@@ -206,10 +244,8 @@ export function getCode(type,email) {
               dispatch(changeCodeButtonDisable(false))
               dispatch(changeCodeed(false))
               dispatch(changeCodeButtonText("获取验证码"))
-            
             }
             dispatch(changeTimeOut(timeOut))
-            console.log(timeOut)
           }
           let a = setInterval(timeDown, 1000);
         }
@@ -228,4 +264,11 @@ export function getCode(type,email) {
   } else {
     return errorMsg(check.msg);
   }
+}
+
+/**
+ * 页面卸载前清楚错误信息
+ */
+export function cleareMsg(){
+  return { type: ERROR_MSG, payload: "" };
 }
