@@ -73,7 +73,6 @@ class Nav extends React.Component {
           background-color:rgba(0,0,0,0.6);
         }
     `;
-    console.log(this.props.history)
     return (
       <Nav>
         <img src="http://p0ml8s4qd.bkt.clouddn.com/lovemaillogo.png" alt=""/>
