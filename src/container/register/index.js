@@ -1,5 +1,7 @@
 import React from "react"
-import axios from "../../config/axios"
+
+import { connect } from "react-redux"
+import { register, getCode } from "../../redux/user.redux"
 
 import InputCom from "../../components/input"
 import FormTopText from "../../components/formTopText"
@@ -10,6 +12,10 @@ import FormerrMsg from "../../components/tipMes/formerrMsg"
 
 import "./register.less"
 
+@connect(
+  state => state.user,
+  { register, getCode }
+)
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -17,12 +23,6 @@ class Register extends React.Component {
       email: "",
       password: "",
       code: "",
-      timeCount: 99,
-      codeDisable: false,
-      codeSended: false,
-      errorMessage: "",
-      registerMes: "注册",
-      checkText: "获取验证码"
     };
   }
   handleInput(key, e) {
@@ -30,137 +30,29 @@ class Register extends React.Component {
       [key]: e.target.value
     });
   }
-  checkAllInfo() {
-    let { email, password, code } = this.state;
-    let reg = new RegExp(
-      "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
-    );
-    if (!reg.test(email)) {
-      this.setState({
-        errorMessage: "请输入正确的邮箱"
-      });
-      return false;
-    } else if (password.length <= 3) {
-      console.log(password.length);
-      this.setState({
-        errorMessage: "请输入正确的密码(4位以上)"
-      });
-      return false;
-    } else if (code.length <= 0) {
-      this.setState({
-        errorMessage: "请输入验证码"
-      });
-      return false;
-    } else {
-      this.setState({
-        errorMessage: ""
-      });
-      return true;
-    }
-  }
-  async getCode() {
+  getCode() {
     let { email } = this.state;
-    let reg = new RegExp(
-      "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
-    );
-    if (!reg.test(email)) {
-      this.setState({
-        errorMessage: "请输入正确的邮箱"
-      });
-      return false;
-    } else {
-      this.setState({
-        errorMessage: "",
-        checkText: "正在发送",
-        codeDisable: true
-      });
-      var that = this;
-      const getValidata = axios.post("/email/validate", {
-        email: that.state.email,
-        type: "SIGNUP"
-      });
-      try {
-        let result = await getValidata;
-        if (result.status === 200) {
-          this.countdown(); //100秒内无法再次获取验证码
-          this.setState({
-            checkText: "已发送",
-            codeSended: true
-          });
-        }
-      } catch (e) {
-        this.setState({
-          errorMessage: e.response.data.msg,
-          checkText: "获取验证码",
-          codeDisable: false
-        });
-      }
-    }
+    this.props.getCode("SIGNUP",email)
   }
+  
   async register() {
     let { email, password, code } = this.state;
-    if (this.checkAllInfo()) {
-      this.setState({
-        registerMes: "正在注册"
-      });
-      const registerData = axios.post("/signup", {
-        email,
-        password,
-        code
-      })
-      try {
-        let result = await registerData
-        if (result.status === 201) {
-          this.setState({
-            registerMes: "注册成功,正在跳转登录"
-          });
-          setTimeout(() => {
-            this.props.history.push("/login");
-          }, 1000);
-        }
-      } catch (e) {
-        this.setState({
-          errorMessage: e.response.data.msg,
-          registerMes: "注册"
-        });
-      }
-    }
+    this.props.register(email, password, code)
   }
-  countdown() {
-    let timeOut = 99;
-    let that = this;
-    function timeDown() {
-      timeOut--;
-      that.setState({
-        timeCount: timeOut
-      });
-      if (timeOut === 0) {
-        clearInterval(a);
-        that.setState({
-          timeCount: 99,
-          codeDisable: false,
-          codeSended: false,
-          checkText: "获取验证码"
-        });
-      }
-    }
-    let a = setInterval(timeDown, 1000);
-  }
+  
   render() {
     return (
       <div className="register-container">
         <div className="register-box vertical-center">
           <FormTopText sloganValue="你的到来，就是最好的礼物" />
           <div className="form-box fadeInDown">
-          <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
-          <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
-          <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
-          <TimeoutButton style={{bottom: '9px'}} disableVal={this.state.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.state.codeSended
-                ? `${this.state.timeCount} s `
-                : this.state.checkText} />
+            <InputCom typeValue="text" textValue={this.state.email} placeholderVal="邮箱" keyVal="email" handleInput={this.handleInput.bind(this)} />
+            <InputCom typeValue="password" textValue={this.state.password} placeholderVal="密码" keyVal="password" handleInput={this.handleInput.bind(this)} />
+            <InputCom typeValue="text" textValue={this.state.code} placeholderVal="验证码" keyVal="code" handleInput={this.handleInput.bind(this)} />
+            <TimeoutButton style={{bottom: '9px'}} disableVal={this.props.codeDisable} onClick={this.getCode.bind(this)} buttonText={this.props.timeOut === 0 ? this.props.checkText : `${this.props.timeOut }s`}/>
           </div>
-          <FormerrMsg msgValue={this.state.errorMessage} />
-          <FromButton onClick={this.register.bind(this)} buttonText={this.state.registerMes} />
+          <FormerrMsg msgValue={this.props.errMsg} />
+          <FromButton onClick={this.register.bind(this)} buttonText={this.props.registerMsg} />
           <FormOtherBox otherOne={{router:"/login",textValue:"已有账号？ 立即登录"}} />
         </div>
       </div>

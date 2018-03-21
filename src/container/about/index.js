@@ -1,4 +1,8 @@
 import React from 'react'
+import { connect } from "react-redux"
+
+import { login } from "../../redux/user.redux"
+
 import { Row, Col } from 'antd'
 
 import axios from '../../config/axios'
@@ -7,6 +11,10 @@ import InputCom from '../../components/input'
 
 import "./about.less"
 
+@connect(
+  state => state.user,
+  { login }
+)
 class About extends React.Component {
   testApi() {
     let promise = new Promise(function(resolve, reject){
@@ -26,6 +34,8 @@ class About extends React.Component {
     console.log(e.target.value)
   }
   componentDidMount(){
+    console.log(this.props)
+    this.props.login({email:'isdf@dzf.asdf', password:'1234'})
     // console.log(this.refs.testinput.focus())
   }
   testApi() {
