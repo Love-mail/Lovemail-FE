@@ -18,6 +18,12 @@ import "./about.less"
   { login, userDateUpdate, logout, saveSetting, getTempData, getCityData }
 )
 class About extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      testxss: "<script>alert('hhh')</script>"
+    }
+  }
   testApi() {
     let promise = new Promise(function(resolve, reject){
       setTimeout(()=>{
@@ -63,6 +69,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
+        <p>{this.state.testxss}</p>
         <button onClick={this.city.bind(this)} >city</button>        
         <button onClick={this.gettemp.bind(this)} >temp</button>        
         <button onClick={this.saveSetting.bind(this)} >setting</button>        

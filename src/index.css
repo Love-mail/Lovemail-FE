@@ -22,11 +22,7 @@ input, button, select, textarea {
     color: #c7c7c7;
     }
 
-/* 缓动 */
-.fadeInDown {
-  animation: fadeInDown 1s ease;
-  animation-iteration-count:1;
-}
+
 
 /* 垂直居中 */
 .vertical-center {
@@ -35,7 +31,11 @@ input, button, select, textarea {
   left: 50%;
   transform: translate3d(-50%,-50%,0);
 }
-
+/* 缓动 */
+.fadeInDown {
+  animation: fadeInDown 1s ease;
+  animation-iteration-count:1;
+}
 @keyframes fadeInDown {
   from {
     opacity: 0;
